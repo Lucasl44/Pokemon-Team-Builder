@@ -1,33 +1,25 @@
 import React, { useState } from 'react';
 
-const Pokemon = ({number, type, setTypes}) => {
-    const [type1, setFirstType] = useState("");
-    const [type2, setSecondType] = useState("");
+const Pokemon = ({number, pokemonList, setPokemonList}) => {
+    const [pokemon, setPokemon] = useState("");
 
-    const handleSubmit = () => {
-        setTypes(prevType => [...prevType, type1]);
-        type2 ? setTypes(prevType => [...prevType, type2]): console.log("No second type");
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        setPokemonList(prevPokemon => [...prevPokemon, pokemon]);
+        console.log(process.env.REACT_APP_BASE_URL)
+    };
 
     return (
         <div>
             <form>
                 <label>
-                    {number}. Pokemon's First Weakness:
+                    {number}. Enter a Pokemon:
                     <input type="text" onChange={(e) => {
-                        setFirstType(e.target.value)
+                        setPokemon(e.target.value)
                     }}></input>
                 </label>
-            </form>
-            <form>
-                <label>
-                    Pokemon's Second Weakness (if applicable):
-                    <input type="text" onChange={(e) => {
-                        setSecondType(e.target.value)
-                    }}></input>
-                </label>
-            </form>
             <button type="submit" onClick={handleSubmit}>Submit</button>
+            </form>
         </div>
     )
 }
